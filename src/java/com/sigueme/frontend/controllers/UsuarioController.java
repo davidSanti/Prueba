@@ -75,7 +75,7 @@ public class UsuarioController implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         String redirect = "createUser";
         try{
-            this.usuario.setIdRol(rol);
+            //this.usuario.setIdRol(rol);
             this.usuarioFacadeLocal.create(usuario);
             context.addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "El usuario se ha registrado correctamente"));
