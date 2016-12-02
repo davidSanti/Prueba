@@ -71,10 +71,18 @@ public class UsuarioController implements Serializable{
     }
 
 
-    public void registrarUsuario(){
-        this.usuario.setIdRol(rol);
-        this.usuarioFacadeLocal.create(usuario);
-        
+    public String registrarUsuario(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        String redirect = "createUser";
+        try{
+            this.usuario.setIdRol(rol);
+            this.usuarioFacadeLocal.create(usuario);
+            redirect = "principalUser";
+        }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo registrar el usuario"));
+        }
+        return redirect;
     }
     
     public List<Usuario> listarUsuarios(){
@@ -92,10 +100,20 @@ public class UsuarioController implements Serializable{
         return "editUser";
     }
     
-    public void editarUsuario(){
-        this.usuarioFacadeLocal.edit(this.usuario);
+    public String editarUsuario(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        String redirect = "editUser";
+        try{
+            //this.usuario.setIdRol(rol);
+            this.usuarioFacadeLocal.edit(this.usuario);
+            redirect = "principalUser";
+        }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo registrar el usuario"));
+        }
+        return redirect;
     }
-    
+        
     public Usuario getUsuario() {
         return usuario;
     }
