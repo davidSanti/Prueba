@@ -77,6 +77,9 @@ public class UsuarioController implements Serializable{
         try{
             this.usuario.setIdRol(rol);
             this.usuarioFacadeLocal.create(usuario);
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "El usuario se ha registrado correctamente"));
+        
             redirect = "principalUser";
         }catch(Exception e){
             context.addMessage(
@@ -90,8 +93,18 @@ public class UsuarioController implements Serializable{
     }
     
     public void eliminarUsuario(Usuario usuario){
+        FacesContext context = FacesContext.getCurrentInstance();
         this.usuario = usuario;
-        this.usuarioFacadeLocal.remove(this.usuario);
+        try{
+            this.usuarioFacadeLocal.remove(this.usuario);
+            
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "El usuario se ha eliminado correctamente"));
+            
+        }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se han eliminar el usuario"));
+        }
         
     }
     
@@ -107,9 +120,12 @@ public class UsuarioController implements Serializable{
             //this.usuario.setIdRol(rol);
             this.usuarioFacadeLocal.edit(this.usuario);
             redirect = "principalUser";
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Los datos se han modificado correctamente"));
+            
         }catch(Exception e){
             context.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo registrar el usuario"));
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se han modificado los datos"));
         }
         return redirect;
     }

@@ -2,34 +2,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
        
         <h:form>
-            <h:panelGrid columns="2">
+            <h2>Editar Usuario</h2>
+            <p:separator/>
+            
+            <p:growl id="growlEditUser" showDetail="true" sticky="false" life="2000"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            
+            <h:panelGrid columns="3">
                 
                 <h:outputLabel for="cedula" value="Cedula"/>
                 <h:inputText   id="cedula" required="true" disabled="true"
-                               value="#{usuarioController.usuario.cedula}"/>
+                               value="#{usuarioController.usuario.cedula}">
+                    <f:validateLength minimum="8" maximum="10" />
+                </h:inputText>
+                <p:message for="cedula"/>
                 
                 <h:outputLabel for="nombre" value="Nombre"/>
-                <h:inputText   id="nombre" required="true"
-                               value="#{usuarioController.usuario.nombre}"/>
-                
+                <h:inputText   id="nombre" required="true" requiredMessage="Nombre es un Campo Obligatorio"
+                               value="#{usuarioController.usuario.nombre}">
+                    <f:validateLength minimum="3" maximum="15" />
+                </h:inputText>
+                <p:message for="nombre"/>
+                               
                 <h:outputLabel for="apellido" value="Apellido"/>
-                <h:inputText   id="apellido" required="true"
-                               value="#{usuarioController.usuario.apellidos}"/>
+                <h:inputText   id="apellido" required="true" requiredMessage="Apellido es un Campo Obligatorio"
+                               value="#{usuarioController.usuario.apellidos}">
+                    <f:validateLength minimum="3" maximum="15" />
+                </h:inputText>
+                <p:message for="apellido"/>
                 
                 <h:outputLabel for="email" value="Correo"/>
-                <h:inputText   id="email" required="true"
-                               value="#{usuarioController.usuario.email}"/>
+                <h:inputText   id="email" required="true" requiredMessage="Correo es un Campo Obligatorio"
+                               value="#{usuarioController.usuario.email}">
+                    <f:validateLength minimum="11" maximum="30" />
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                </h:inputText>
+                <p:message for="email"/>
                 
                 <h:outputLabel for="password" value="Contraseña"/>
-                <h:inputSecret id="password" required="true"
-                               value="#{usuarioController.usuario.contraseña}"/>
+                <h:inputSecret id="password" required="true" requiredMessage="Contraseña es un Campo Obligatorio"
+                               value="#{usuarioController.usuario.contraseña}">
+                    <f:validateLength minimum="8" maximum="16" />
+                </h:inputSecret>
+                <p:message for="password"/>
                 
                 <h:outputLabel for="role" value="Rol"/>
                 <h:selectOneMenu id="role" value="#{usuarioController.usuario.idRol}" 
@@ -37,9 +61,10 @@
                     <f:selectItems var="rol" value="#{usuarioController.roles}"
                                    itemLabel="#{rol.descripcion}" itemValue="#{rol}"/>
                 </h:selectOneMenu>
+                <p:message for="role"/>
                 
-                <h:commandButton id="editUser" value="Guardar Datos"
-                                 action="#{usuarioController.editarUsuario()}"/>
+                <p:commandButton id="editUser" value="Guardar Datos"
+                                 action="#{usuarioController.editarUsuario()}" update="growlEditUser" />
                 
             </h:panelGrid>
         </h:form>

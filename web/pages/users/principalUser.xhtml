@@ -10,13 +10,17 @@
     <h:body>
         
         <h:form>
+            <p:growl id="growlPrincipalUser" showDetail="true" sticky="false" life="2000"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            
             <p:link value="Registrar Usuario" outcome="createUser"/>
             <h:dataTable value="#{usuarioController.listarUsuarios()}" var="user"
                          border="1" cellpadding="6" cellspacing="3">
                 
                 <h:column>
                     <f:facet name="header">Cedula</f:facet>
-                    <h:outputText value="#{user.cedula}"/>
+                    <h:outputText value="#{user.cedula}"/>                   
                 </h:column>
                 
                 <h:column>
@@ -41,8 +45,8 @@
                 
                 <h:column>
                     <f:facet name="header">Acciones</f:facet>
-                    <h:commandButton value="Eliminar" onclick="return confirm('Seguro')"
-                                     action="#{usuarioController.eliminarUsuario(user)}"/>
+                    <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar el usuario?')"
+                                     action="#{usuarioController.eliminarUsuario(user)}" />
                     <h:commandButton value="Editar" action="#{usuarioController.editarUsuario(user)}"/>
                 </h:column>
                 
