@@ -10,47 +10,44 @@
     <h:body>
         
         <h:form>
+            <h2>Listado de Usuarios</h2>
+            <p:separator/>
             <p:growl id="growlPrincipalUser" showDetail="true" sticky="false" life="2000"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             
-            <p:link value="Registrar Usuario" outcome="createUser"/>
-            <h:dataTable value="#{usuarioController.listarUsuarios()}" var="user"
-                         border="1" cellpadding="6" cellspacing="3">
+            <p:button value="Registrar Usuario" outcome="createUser"/>
+            <p:button style="float: right;" value="Regresar" /><br/><br/>
+            <p:dataTable value="#{usuarioController.listarUsuarios()}" var="user"
+                         paginator="true" paginatorPosition="bottom" rows="6">
                 
-                <h:column>
-                    <f:facet name="header">Cedula</f:facet>
+                <p:column headerText="Cedula">
                     <h:outputText value="#{user.cedula}"/>                   
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Nombre</f:facet>
+                <p:column headerText="Nombre">
                     <h:outputText value="#{user.nombre}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Apellido</f:facet>
-                    <h:outputText value="#{user.apellidos}"/>
-                </h:column>
+                <p:column headerText="Apellido">
+                   <h:outputText value="#{user.apellidos}"/>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Email</f:facet>
-                    <h:outputText value="#{user.email}"/>
-                </h:column>
+                <p:column headerText="Email">
+                   <h:outputText value="#{user.email}"/>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Rol</f:facet>
+                <p:column headerText="Rol">
                     <h:outputText value="#{user.idRol.descripcion}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Acciones</f:facet>
-                    <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar el usuario?')"
-                                     action="#{usuarioController.eliminarUsuario(user)}" />
-                    <h:commandButton value="Editar" action="#{usuarioController.editarUsuario(user)}"/>
-                </h:column>
+                <p:column headerText="Acciones" width="100">
+                    <p:commandButton  icon="ui-icon-pencil" action="#{usuarioController.editarUsuario(user)}"/>
+                    <p:commandButton  icon="ui-icon-close" onclick="return confirm('¿Está seguro de eliminar el usuario?')"
+                                      action="#{usuarioController.eliminarUsuario(user)}" />
+                </p:column>
                 
-            </h:dataTable>
+            </p:dataTable>
         </h:form>
         
     </h:body>
