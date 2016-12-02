@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <h:form>
+            <h:messages showDetail="true" showSummary="true"/>
+            <h:panelGrid columns="3">
+                
+                <h:outputLabel for="nombre" value="Nombre"/>
+                <h:inputText id="nombre" required="true"
+                             value="#{solucionController.solucion.nombre}"/>
+                <h:message for="nombre"/>
+                
+                <h:outputLabel for="descripcion" value="Descripcion"/>
+                <h:inputTextarea id="descripcion" required="true"
+                                 value="#{solucionController.solucion.descripcion}"/>
+                <h:message for="descripcion"/>
+                
+                <h:outputLabel for="categoria" value="Categoria"/>
+                <h:selectOneMenu id="categoria" value="#{solucionController.servicio.servicioID}"
+                                 >
+                    <f:selectItems var="cate" value="#{solucionController.servicios}"
+                                   itemLabel="#{cate.descripcion}" itemValue="#{cate.servicioID}"/>
+                </h:selectOneMenu>
+                <h:message for="categoria"/>
+                
+                <h:commandButton id="createSolution" value="Registrar"
+                                 action="#{solucionController.registrarSolucion()}"/>
+            </h:panelGrid>
+        </h:form>
+        
+    </h:body>
+</html>
+

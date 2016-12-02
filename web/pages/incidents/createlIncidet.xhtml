@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <f:view>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="numCaso" value="Numero de caso"/> 
+                <h:inputText id="numCaso" required="true"
+                             value="#{incidenciaController.incidencia.numeroDeCaso}"/>
+                
+                <h:outputLabel for="agente" value="Agente"/>
+                <h:selectOneMenu id="agente" value="#{incidenciaController.usuario}" 
+                                 converter="usuarioConverter">
+                    <f:selectItems value="#{incidenciaController.usuarios}" var="item"
+                                   itemLabel="#{item.apellidos}" itemValue="#{item}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel for="categoria" value="Categoria"/>
+                <h:selectOneMenu id="categoria" value="#{incidenciaController.servicio}"
+                                 converter="servicioConverter">
+                    <f:selectItems value="#{incidenciaController.servicios}" var="ser"
+                                   itemLabel="#{ser.descripcion}" itemValue="#{ser}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel for="error" value="Error Frecuente"/>
+                <h:selectManyCheckbox value="#{incidenciaController.incidencia.erroresFrescuentes}"
+                                      id="error" converter="errorConverter">
+                    <f:selectItems value="#{incidenciaController.errores}" var="err"
+                                   itemLabel="#{err.descripcion}" itemValue="#{err}"/>
+                    
+                </h:selectManyCheckbox>
+                
+                <h:outputLabel for="descripcion" value="Descripcion"/> 
+                <h:inputTextarea id="descripcion" required="true"
+                                 value="#{incidenciaController.incidencia.descripcion}"/>
+                
+                <h:commandButton id="bb" value="Enviar" 
+                                 action="#{incidenciaController.registrarIncidencia()}"/>
+            </h:panelGrid>
+        </h:form>
+        </f:view>
+    </h:body>
+</html>
+

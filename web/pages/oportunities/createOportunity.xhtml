@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://java.sun.com/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <f:view>
+            <h:form>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel for="nombre" value="Nombre"/>
+                    <h:inputText id="nombre" required="true"
+                                 value="#{oportunidadController.oportunidad.nombre}"/>
+                    
+                    <h:outputLabel for="fechaIni" value="Fecha Inicio"/>
+                    <p:calendar id="fechaIni" value="#{oportunidadController.oportunidad.fechaInicio}"
+                                pattern="MM/dd/yyyy HH:mm:ss" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                    </p:calendar>
+                    
+                    <h:outputLabel for="fechaFin" value="Fecha Fin"/>
+                    <p:calendar id="fechaFin" value="#{oportunidadController.oportunidad.fechaFin}"
+                                pattern="MM/dd/yyyy HH:mm:ss" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                    </p:calendar>
+                    
+                    <h:outputLabel for="razon" value="Razon"/>
+                    <h:inputText id="razon" required="true"
+                                 value="#{oportunidadController.oportunidad.razon}"/>
+                    
+                    <h:outputLabel for="descripcion" value="Descripcion"/>
+                    <h:inputText id="descripcion" required="true"
+                                 value="#{oportunidadController.oportunidad.descripcion}"/>
+                    
+                    
+                    <h:outputLabel for="agentesOp" value="Agentes"/>
+                    <h:selectManyCheckbox value="#{oportunidadController.oportunidad.usuariosOportunidad}"
+                                          id="agentesOp" converter="usuarioConverter">
+                        <f:selectItems value="#{oportunidadController.agentesOportunidad}" var="agt"
+                                       itemLabel="#{agt.apellidos}" itemValue="#{agt}"/>
+                        
+                    </h:selectManyCheckbox>
+                    
+                    <h:commandButton id="bo" value="Enviar"
+                                     action="#{oportunidadController.registrarOportunidad()}"/>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+        
+    </h:body>
+</html>
+

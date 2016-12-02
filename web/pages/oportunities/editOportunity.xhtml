@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <h:form>
+            <h:panelGrid columns="2">
+                
+                <h:outputLabel  value="Oportunidad ID" for="oportunidadId"  />
+                <h:inputText id="oportunidadId" required="true" disabled="true"
+                             value="#{oportunidadController.oportunidad.oportunidadID}"/>
+                
+                <h:outputLabel  value="Nombre" for="nombre"  />
+                <h:inputText id="nombre" required="true"
+                             value="#{oportunidadController.oportunidad.nombre}"/>
+                
+                <h:outputLabel value="Fecha Inicio" for="fechaInicio"/>
+                <p:calendar id="fechaInicio" required="true" pattern="MM/dd/yyyy HH:mm:ss"
+                            value="#{oportunidadController.oportunidad.fechaInicio}">
+                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                </p:calendar>
+                
+                <h:outputLabel value="Fecha Fin" for="fechaFin"/>
+                <p:calendar id="fechaFin" required="true" pattern="MM/dd/yyyy HH:mm:ss"
+                            value="#{oportunidadController.oportunidad.fechaFin}">
+                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                </p:calendar>
+                 
+                <h:outputLabel  value="Razon" for="razon"  />
+                <h:inputText id="razon" required="true"
+                             value="#{oportunidadController.oportunidad.razon}"/>
+                
+                <h:outputLabel  value="Descripcion" for="descripcion"  />
+                <h:inputTextarea id="descripcion" required="true"
+                                 value="#{oportunidadController.oportunidad.descripcion}"/>
+                
+                <h:outputLabel  value="Numero de Intentos" for="numeroIntentos"  />
+                <h:inputText id="numeroIntentos" required="true"
+                             value="#{oportunidadController.oportunidad.numIntentos}"/>
+                
+                <h:outputLabel value="Estado" for="estado"/>
+                <h:selectOneMenu id="estado" converter="estadoOportunidadConverter"
+                                 value="#{oportunidadController.oportunidad.idEstado}">
+                    <f:selectItems var="est" value="#{oportunidadController.estadosOportuniad}"
+                                   itemLabel="#{est.descripcion}"
+                                   itemValue="#{est}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel for="agentesOp" value="Agentes"/>
+                <h:selectManyCheckbox value="#{oportunidadController.oportunidad.usuariosOportunidad}"
+                                          id="agentesOp" converter="usuarioConverter">
+                    <f:selectItems value="#{oportunidadController.agentesOportunidad}" var="agt"
+                                       itemLabel="#{agt.apellidos}" itemValue="#{agt}"/>
+                        
+                </h:selectManyCheckbox>
+                
+                <h:commandButton id="editOportu" value="Guardar"
+                                 action="#{oportunidadController.editarOportunidad()}"/>
+                
+            </h:panelGrid>
+        </h:form>
+        
+    </h:body>
+</html>
+
