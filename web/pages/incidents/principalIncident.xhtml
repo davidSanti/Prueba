@@ -6,13 +6,18 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        
     </h:head>
     <h:body>
         
         <h:form>
+            <p:link value="Registrar Incidencia" outcome="createIncident"/>
+            <p:separator/>
+                
+            <p:growl id="growl" showDetail="true" sticky="false" life="2000"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
             
-            <h:link value="Registrar Incidencia" outcome="createIncident"></h:link>
-           
             <h:dataTable var="Incident" value="#{incidenciaController.listarIncidencia()}"
                          border="1" cellpadding="6" cellspacing="3">
                 
@@ -23,12 +28,14 @@
                                 
                 <h:column>
                     <f:facet name="header">Agente</f:facet>
-                    <h:outputText value="#{Incident.agente.apellidos}"/>
+                    <h:outputText value="#{Incident.agente.apellidos} #{Incident.agente.nombre}"/>
                 </h:column>
                                 
                 <h:column>
                     <f:facet name="header">Fecha Registro</f:facet>
-                    <h:outputText value="#{Incident.fechaRegistro}"/>
+                    <h:outputText value="#{Incident.fechaRegistro}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
                 </h:column>
                 
                 <h:column>

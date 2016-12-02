@@ -2,19 +2,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         
         <h:form>
-            <h:messages showDetail="true" showSummary="true"/>
+            <h2>Editar Incidencia</h2>
+            <p:separator/>
+                
+            <p:growl id="growlEditIncident" showDetail="true" sticky="false" life="2000"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            
             <h:panelGrid columns="3">
                 <h:outputLabel for="numCaso" value="Numero de caso"/> 
                 <h:inputText id="numCaso" required="true" disabled="true"
-                             value="#{incidenciaController.incidencia.numeroDeCaso}"/>
-                <h:message for="numCaso"/>
+                             value="#{incidenciaController.incidencia.numeroDeCaso}">
+                    <f:validateLength minimum="4" maximum="6"/>
+                    <f:convertNumber integerOnly="true"/>
+                </h:inputText>
+                <p:message for="numCaso"/>
                 
                 <h:outputLabel for="agente" value="Agente"/>
                 <h:selectOneMenu id="agente" value="#{incidenciaController.incidencia.agente}" 
@@ -22,7 +32,7 @@
                     <f:selectItems value="#{incidenciaController.usuarios}" var="item"
                                    itemLabel="#{item.apellidos}" itemValue="#{item}"/>
                 </h:selectOneMenu>
-                <h:message for="agente"/>
+                <p:message for="agente"/>
                 
                 <h:outputLabel for="categoria" value="Categoria"/>
                 <h:selectOneMenu id="categoria" value="#{incidenciaController.incidencia.idCategoria}"
@@ -30,14 +40,24 @@
                     <f:selectItems value="#{incidenciaController.servicios}" var="ser"
                                    itemLabel="#{ser.descripcion}" itemValue="#{ser}"/>
                 </h:selectOneMenu>
-                <h:message for="categoria"/>
+                <p:message for="categoria"/>
                 
                 <h:outputLabel for="descripcion" value="Descripcion"/> 
-                <h:inputTextarea id="descripcion" required="true"
+                <h:inputTextarea id="descripcion" required="true" requiredMessage="Descripción es un Campo Obligatorio"
                                  value="#{incidenciaController.incidencia.descripcion}"/>
-                <h:message for="descripcion"/>
+                <p:message for="descripcion"/>
                 
-                <h:commandButton id="p2" value="Guardar" 
+                
+                <h:outputLabel for="error" value="Error Frecuente"/>
+                <h:selectManyCheckbox value="#{incidenciaController.incidencia.erroresFrescuentes}"
+                                      id="error" converter="errorConverter">
+                    <f:selectItems value="#{incidenciaController.errores}" var="err" 
+                                   itemLabel="#{err.descripcion}" itemValue="#{err}"/>
+                    
+                </h:selectManyCheckbox>
+                <p:message for="error"/>
+                
+                <p:commandButton id="p2" value="Guardar" update="growlEditIncident"
                                  action="#{incidenciaController.editarIncidencia()}"/>
             </h:panelGrid>
         </h:form>

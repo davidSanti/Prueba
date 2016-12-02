@@ -66,15 +66,39 @@ public class IncidenciaController {
     }
     
     public String registrarIncidencia(){
-        this.incidencia.setAgente(usuario);
-        this.incidencia.setIdCategoria(servicio);
-        this.incidenciaFacadeLocal.create(incidencia);
-        return "/pages/incidents/createlIncidet";
+        FacesContext context = FacesContext.getCurrentInstance();
+        String redirect = "createIncident";
+        try{
+            this.incidencia.setAgente(usuario);
+            this.incidencia.setIdCategoria(servicio);
+            this.incidenciaFacadeLocal.create(incidencia);
+                       
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La incidencia se ha registrado correctamente"));
+        
+            redirect = "principalIncident";
+        }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo registrar la incidencia"));
+        }
+        return redirect;
+        
     }
     
     public void eliminarIncidencia(Incidencia incidencia){
+        FacesContext context = FacesContext.getCurrentInstance();
         this.incidencia = incidencia;
-        this.incidenciaFacadeLocal.remove(this.incidencia);
+        try{
+            this.incidenciaFacadeLocal.remove(this.incidencia);
+                      
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La incidencia se ha eliminado correctamente"));
+        
+            }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo eliminar la incidencia"));
+        }
+        
     }
 
     public String editarIncidencia(Incidencia incidencia){
@@ -83,19 +107,19 @@ public class IncidenciaController {
         
     }
     
-    public void editarIncidencia(){
+    public String editarIncidencia(){
         FacesContext context = FacesContext.getCurrentInstance();
-       // String redirect = "";
+        String redirect = "editlIncident";
         try{
             this.incidenciaFacadeLocal.edit(this.incidencia);
             context.addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La incidencia se ha modificado correctamente") );
-          //  redirect = "principalIncident";
+            redirect = "principalIncident";
         }catch(Exception e){
             context.addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "La incidencia no se pudo modificar") );
         }
-       // return redirect;
+        return redirect;
     }
     public Usuario getUsuario() {
         return usuario;
