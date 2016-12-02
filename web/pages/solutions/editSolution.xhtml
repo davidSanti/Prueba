@@ -8,14 +8,14 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
         <h:form>
-            <h2>Registrar Solución</h2>
+            <h2>Editar Solución</h2>
             <p:separator/>
                 
             <p:growl id="growl" showDetail="true" sticky="false" life="1500"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
+            <h:messages showDetail="true" showSummary="true"/>
             <h:panelGrid columns="3">
                 
                 <h:outputLabel for="nombre" value="Nombre"/>
@@ -29,18 +29,17 @@
                 <h:message for="descripcion"/>
                 
                 <h:outputLabel for="categoria" value="Categoria"/>
-                <h:selectOneMenu id="categoria" value="#{solucionController.servicio}"
+                <h:selectOneMenu id="categoria" value="#{solucionController.solucion.categoria}"
                                  converter="servicioConverter">
                     <f:selectItems var="cate" value="#{solucionController.servicios}"
                                    itemLabel="#{cate.descripcion}" itemValue="#{cate}"/>
                 </h:selectOneMenu>
                 <h:message for="categoria"/>
                 
-                <h:commandButton id="createSolution" value="Registrar"
-                                 action="#{solucionController.registrarSolucion()}"/>
+                <h:commandButton id="createSolution" value="Guardar datos"
+                                 action="#{solucionController.editarSolucion()}"/>
             </h:panelGrid>
         </h:form>
-        
     </h:body>
 </html>
 

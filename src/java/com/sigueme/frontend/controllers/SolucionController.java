@@ -53,9 +53,11 @@ public class SolucionController {
             this.solucion.setCategoria(servicio);
             this.solucion.setAgente(p);
             this.solucionFacadeLocal.create(solucion);
-            ftx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Se creo perro infeliz"));
+            ftx.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","La Solución se ha registrado correctamente"));
         }catch(Exception e){
-            ftx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se creo ni mierda"));
+            ftx.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo registrar la solución"));
         }
     }
 
@@ -66,6 +68,29 @@ public class SolucionController {
     public void eliminarSolucion(Solucion solucion){
         this.solucion = solucion;
         this.solucionFacadeLocal.remove(this.solucion);
+    }
+    public String editarSolucion(Solucion solucion){
+        this.solucion = solucion;
+        return "editSolution";
+    }
+    
+    public String editarSolucion(){
+        FacesContext ftx= FacesContext.getCurrentInstance();
+        HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        Usuario p = (Usuario) sesion.getAttribute("usuario");
+        String redirect = "editSolution";
+        try{
+            this.solucion.setAgente(p);
+            this.solucion.setCategoria(servicio);
+            this.solucionFacadeLocal.create(solucion);
+            ftx.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","La Solución se ha modificado correctamente"));
+            redirect = "principalSolution";
+        }catch(Exception e){
+            ftx.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo modificar la solución"));
+        }
+        return redirect;
     }
     
     public Servicio getServicio() {

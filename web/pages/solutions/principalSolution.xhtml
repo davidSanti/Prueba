@@ -2,13 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         
         <h:form>
+            <p:growl id="growl" showDetail="true" sticky="false" life="1500"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            
             <h:link value="Registrar Solucion" outcome="createSolution"/>
             <h:dataTable value="#{solucionController.listarSoluciones()}" var="solution"
                          border="1" cellpadding="6" cellspacing="3">
@@ -49,6 +54,8 @@
                     <f:facet name="header">Acciones</f:facet>
                     <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la solución?')"
                                      action="#{solucionController.eliminarSolucion(solution)}"/>
+                    <h:commandButton value="Editar"
+                                     action="#{solucionController.editarSolucion(solution)}"/>
                 </h:column>
                 
             </h:dataTable>

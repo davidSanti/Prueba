@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 
@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
  * @author Santi
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class IncidenciaController {
     
     @EJB
@@ -106,12 +106,17 @@ public class IncidenciaController {
         return "editlIncident";
         
     }
-    
+
     public String editarIncidencia(){
         FacesContext context = FacesContext.getCurrentInstance();
+        System.out.println("descripcion:: "+this.incidencia.getDescripcion());
+        System.out.println("Numero de caso:: "+this.incidencia.getNumeroDeCaso());
         String redirect = "editlIncident";
         try{
+            
             this.incidenciaFacadeLocal.edit(this.incidencia);
+        System.out.println("descripcion seteada:: "+this.incidencia.getDescripcion());
+        System.out.println("Numero de caso seteada:: "+this.incidencia.getNumeroDeCaso());
             context.addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La incidencia se ha modificado correctamente") );
             redirect = "principalIncident";
