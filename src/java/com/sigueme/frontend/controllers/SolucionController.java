@@ -81,8 +81,8 @@ public class SolucionController {
         String redirect = "editSolution";
         try{
             this.solucion.setAgente(p);
-            this.solucion.setCategoria(servicio);
-            this.solucionFacadeLocal.create(solucion);
+            //this.solucion.setCategoria(servicio);
+            this.solucionFacadeLocal.edit(solucion);
             ftx.addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","La Solución se ha modificado correctamente"));
             redirect = "principalSolution";
