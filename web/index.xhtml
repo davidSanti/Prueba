@@ -12,7 +12,7 @@
              <h2>Inciciar Sesión</h2>
             <p:separator/>
                 
-            <p:growl id="growl" showDetail="true" sticky="false" life="1500"/> 
+            <p:growl id="growlInci" showDetail="true" sticky="false" life="2000"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
            
@@ -32,7 +32,7 @@
                 <p:tooltip id="toolTipFade2" for="password" value="Escriba su contraseña por favor" />
 
                 <p:commandButton id="iniciarSesion" value="Iniciar sesión" icon="ui-icon-check"
-                                 action="#{usuarioController.iniciarSesion()}" update="growl"/>
+                                 action="#{usuarioController.iniciarSesion()}" update="growlInci"/>
                 
             </h:panelGrid>
         </h:form>

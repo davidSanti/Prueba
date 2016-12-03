@@ -2,18 +2,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Sigueme</title>
     </h:head>
     <h:body>
         <h:form>
             
-            <p:link value="Incidencia" outcome="pages/incidents/principalIncident"/><br/><br/>
-            <p:link value="Oportunidades" outcome="pages/oportunities/principalOportunity"/><br/><br/>
-            <p:link value="Soluciones" outcome="pages/solutions/principalSolution"/><br/><br/>
-            <p:link value="Usuarios" outcome="pages/users/principalUser"/><br/><br/>
-
+            <p:tabMenu activeIndex="#{param.i}">
+                <p:menuitem value="Incidencias" outcome="pages/incidents/principalIncident" icon="ui-icon-star">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Oportunidades" outcome="pages/oportunities/principalOportunity" icon="ui-icon-search">
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Soluciones" outcome="pages/solutions/principalSolution" icon="ui-icon-document">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Procedimientos" icon="ui-icon-wrench">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Usuarios" outcome="pages/users/principalUser" icon="ui-icon-person">
+                    <f:param name="i" value="4" />
+                </p:menuitem>
+            </p:tabMenu>
+            <h:column/><h:column/><h:column/>
+            <h1>Bienvenido al sistema de información Sigueme</h1>
+          
         </h:form>
     </h:body>
 </html>
