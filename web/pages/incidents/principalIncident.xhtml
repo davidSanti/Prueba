@@ -19,8 +19,7 @@
             
             <p:separator/>
             <p:button value="Registrar Incidencia" outcome="createIncident"/> 
-            <p:button value="Regresar" style="float: right;"/> <br/><br/> 
-            
+                        
             <p:dataTable var="pp" value="#{incidenciaController.listarIncidencia()}"
                          paginator="true" paginatorPosition="bottom" rows="6">
                              
@@ -47,7 +46,7 @@
                 </p:column>
                 
                 <p:column headerText="Acciones" width="160">
-                    <h:commandButton value="eliminar" onclick="return confirm('¿Está seguro de eliminar la incidencia?')"
+                    <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la incidencia?')"
                                      action="#{incidenciaController.eliminarIncidencia(pp)}"/>
                     <h:commandButton value="Editar"
                                      action="#{incidenciaController.editarIncidencia(pp)}"/>

@@ -26,7 +26,7 @@
                     <f:convertNumber integerOnly="true" />
                 </p:inputText>
                 <p:message for="numCaso" display="tooltip"/>
-                <p:tooltip for="numCaso" value="Escriba el número de caso por favor" />
+                <p:tooltip for="numCaso" value="Escriba el número de caso proveniente de Aranda Soft" />
                 
                 <p:outputLabel for="agente" value="Agente"/>
                 <p:selectOneMenu id="agente" value="#{incidenciaController.incidencia.agente}" 
@@ -44,7 +44,7 @@
                                    itemLabel="#{ser.descripcion}" itemValue="#{ser}"/>
                 </p:selectOneMenu>
                 <p:message for="categoria" display="tooltip"/>
-                <p:tooltip for="categoria" value="Seleccione la categoría por favor" />
+                <p:tooltip for="categoria" value="Seleccione la categoría en la cual falló el agente" />
                                
                 <p:outputLabel for="error" value="Error Frecuente"/>
                 <p:selectCheckboxMenu label="Errores" value="#{incidenciaController.incidencia.erroresFrescuentes}"
@@ -54,13 +54,13 @@
                     
                 </p:selectCheckboxMenu>
                 <p:message for="error" display="tooltip"/>
-                <p:tooltip for="error" value="Seleccione los errores frecuentes" />
+                <p:tooltip for="error" value="Seleccione uno o varios errores en los que falló el agente" />
                               
                 <p:outputLabel for="descripcion" value="Descripcion"/> 
                 <p:inputTextarea id="descripcion" required="true" requiredMessage="Descripción es un Campo Obligatorio"
                                  value="#{incidenciaController.incidencia.descripcion}" scrollHeight="1"/>
                 <p:message for="descripcion" display="tooltip"/>
-                <p:tooltip for="descripcion" value="Escriba una breve descripción por favor"/>
+                <p:tooltip for="descripcion" value="Escriba una breve descripción conforme a la incidencia"/>
                 
                 <h:column/><h:column/><h:column/><h:column/>
                 

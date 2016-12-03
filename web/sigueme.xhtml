@@ -6,12 +6,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sigueme</title>
+        <f:event type="preRenderView" listener="#{siguemeValidator.verificarSesion()}"/>
+
     </h:head>
     <h:body>
         <h:form>
             
             <p:tabMenu activeIndex="#{param.i}">
-                <p:menuitem value="Incidencias" outcome="pages/incidents/principalIncident" icon="ui-icon-star">
+                <p:menuitem value="Incidencias" outcome="pages/incidents/principalIncident?faces-redirect = true" icon="ui-icon-star">
                     <f:param name="i" value="0" />
                 </p:menuitem>
                 <p:menuitem value="Oportunidades" outcome="pages/oportunities/principalOportunity" icon="ui-icon-search">
