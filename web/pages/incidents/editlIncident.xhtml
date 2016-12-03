@@ -18,47 +18,48 @@
                         showDetail="true" showSummary="true"/>
             
             <h:panelGrid columns="3">
-                <h:outputLabel for="numCaso" value="Numero de caso"/> 
-                <h:inputText id="numCaso" required="true" disabled="true"
+                <p:outputLabel for="numCaso" value="Numero de caso"/> 
+                <p:inputText id="numCaso" required="true" disabled="true"
                              value="#{incidenciaController.incidencia.numeroDeCaso}">
                     <f:validateLength minimum="4" maximum="6"/>
-                    <f:convertNumber integerOnly="true"/>
-                </h:inputText>
+                </p:inputText>
                 <p:message for="numCaso"/>
                 
-                <h:outputLabel for="agente" value="Agente"/>
-                <h:selectOneMenu id="agente" value="#{incidenciaController.incidencia.agente}" 
-                                 converter="usuarioConverter">
+                <p:outputLabel for="agente" value="Agente"/>
+                <p:selectOneMenu id="agente" value="#{incidenciaController.incidencia.agente}" 
+                                 converter="usuarioConverter" filter="true">
                     <f:selectItems value="#{incidenciaController.usuarios}" var="item"
                                    itemLabel="#{item.apellidos}" itemValue="#{item}"/>
-                </h:selectOneMenu>
+                </p:selectOneMenu>
                 <p:message for="agente"/>
                 
-                <h:outputLabel for="categoria" value="Categoria"/>
-                <h:selectOneMenu id="categoria" value="#{incidenciaController.incidencia.idCategoria}"
-                                 converter="servicioConverter">
+                <p:outputLabel for="categoria" value="Categoria"/>
+                <p:selectOneMenu id="categoria" value="#{incidenciaController.incidencia.idCategoria}"
+                                 converter="servicioConverter" filter="true">
                     <f:selectItems value="#{incidenciaController.servicios}" var="ser"
                                    itemLabel="#{ser.descripcion}" itemValue="#{ser}"/>
-                </h:selectOneMenu>
+                </p:selectOneMenu>
                 <p:message for="categoria"/>
                 
-                <h:outputLabel for="descripcion" value="Descripcion"/> 
-                <h:inputTextarea id="descripcion" required="true" requiredMessage="Descripción es un Campo Obligatorio"
+                <p:outputLabel for="descripcion" value="Descripcion"/> 
+                <p:inputTextarea id="descripcion" required="true" requiredMessage="Descripción es un Campo Obligatorio"
                                  value="#{incidenciaController.incidencia.descripcion}"/>
                 <p:message for="descripcion"/>
-                
-                
-                <h:outputLabel for="error" value="Error Frecuente"/>
-                <h:selectManyCheckbox value="#{incidenciaController.incidencia.erroresFrescuentes}"
-                                      id="error" converter="errorConverter">
+                                
+                <p:outputLabel for="error" value="Error Frecuente"/>
+                <p:selectCheckboxMenu label="Errores" value="#{incidenciaController.incidencia.erroresFrescuentes}"
+                                      id="error" converter="errorConverter" filter="true">
                     <f:selectItems value="#{incidenciaController.errores}" var="err" 
                                    itemLabel="#{err.descripcion}" itemValue="#{err}"/>
                     
-                </h:selectManyCheckbox>
+                </p:selectCheckboxMenu>
                 <p:message for="error"/>
+                
+                <h:column/><h:column/><h:column/>
                 
                 <p:commandButton id="p2" value="Guardar" update="growlEditIncident"
                                  action="#{incidenciaController.editarIncidencia()}"/>
+                <p:commandButton value="Cancelar" action="principalIncident"/>
             </h:panelGrid>
         </h:form>
         

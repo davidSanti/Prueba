@@ -69,8 +69,8 @@ public class IncidenciaController {
         FacesContext context = FacesContext.getCurrentInstance();
         String redirect = "createIncident";
         try{
-            this.incidencia.setAgente(usuario);
-            this.incidencia.setIdCategoria(servicio);
+            //this.incidencia.setAgente(usuario);
+            //this.incidencia.setIdCategoria(servicio);
             this.incidenciaFacadeLocal.create(incidencia);
                        
             context.addMessage(

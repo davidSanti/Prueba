@@ -57,7 +57,7 @@
                 
                 <p:outputLabel for="role" value="Rol"/>
                 <p:selectOneMenu id="role" value="#{usuarioController.usuario.idRol}" 
-                                 converter="rolConverter">
+                                 converter="rolConverter" filter="true">
                     <f:selectItems var="rol" value="#{usuarioController.roles}"
                                    itemLabel="#{rol.descripcion}" itemValue="#{rol}"/>
                 </p:selectOneMenu>

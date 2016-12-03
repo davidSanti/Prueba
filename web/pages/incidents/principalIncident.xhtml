@@ -11,56 +11,49 @@
     <h:body>
         
         <h:form>
+            <h2>Listados de Incidencias</h2>
+            
             <p:growl id="growlCreateIncident" showDetail="true" sticky="false" life="2000"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             
-            <p:link value="Registrar Incidencia" outcome="createIncident"/>
             <p:separator/>
-                
-            <p:growl id="growl" showDetail="true" sticky="false" life="2000"/> 
-            <p:messages severity="fatal,info,warn"
-                        showDetail="true" showSummary="true"/>
+            <p:button value="Registrar Incidencia" outcome="createIncident"/> 
+            <p:button value="Regresar" style="float: right;"/> <br/><br/> 
             
-            <h:dataTable var="pp" value="#{incidenciaController.listarIncidencia()}"
-                         border="1" cellpadding="6" cellspacing="3">
-                
-                <h:column>
-                    <f:facet name="header">Número de Caso</f:facet>
+            <p:dataTable var="pp" value="#{incidenciaController.listarIncidencia()}"
+                         paginator="true" paginatorPosition="bottom" rows="6">
+                             
+                <p:column headerText="Número de Caso" filterBy="#{pp.numeroDeCaso}">
                     <h:outputText value="#{pp.numeroDeCaso}"/>
-                </h:column>
+                </p:column>
                                 
-                <h:column>
-                    <f:facet name="header">Agente</f:facet>
+                <p:column headerText="Agente">
                     <h:outputText value="#{pp.agente.apellidos} #{pp.agente.nombre}"/>
-                </h:column>
+                </p:column>
                                 
-                <h:column>
-                    <f:facet name="header">Fecha Registro</f:facet>
+                <p:column headerText="Fecha Registro">
                     <h:outputText value="#{pp.fechaRegistro}">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:outputText>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Descripción</f:facet>
+                <p:column headerText="Descripción">
                     <h:outputText value="#{pp.descripcion}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Categoría</f:facet>
+                <p:column headerText="Categoría">
                     <h:outputText value="#{pp.idCategoria.descripcion}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Acciones</f:facet>
-                    <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la incidencia?')"
+                <p:column headerText="Acciones" width="160">
+                    <h:commandButton value="eliminar" onclick="return confirm('¿Está seguro de eliminar la incidencia?')"
                                      action="#{incidenciaController.eliminarIncidencia(pp)}"/>
                     <h:commandButton value="Editar"
                                      action="#{incidenciaController.editarIncidencia(pp)}"/>
-                </h:column>
+                </p:column>
                 
-            </h:dataTable>
+            </p:dataTable>
         </h:form>
         
     </h:body>

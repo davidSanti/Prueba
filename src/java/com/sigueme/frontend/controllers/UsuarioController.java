@@ -95,6 +95,7 @@ public class UsuarioController implements Serializable{
     public void eliminarUsuario(Usuario usuario){
         FacesContext context = FacesContext.getCurrentInstance();
         this.usuario = usuario;
+       
         try{
             this.usuarioFacadeLocal.remove(this.usuario);
             
