@@ -10,50 +10,55 @@
     <h:body>
        
         <h:form>
-            <p:link value="Registrar Oportunidad" outcome="createOportunity"/>
-            <h:messages showDetail="true" showSummary="true"/>
-            <h:dataTable value="#{oportunidadController.listarOportunidades()}" var="oportunity"
-                         border="1" cellpadding="6" cellspacing="3">
+             <h2>Listados de Oportunidades de aprendizaje</h2>
+             
+             <p:growl id="growlCreateIncident" showDetail="true" sticky="false" life="2000"/> 
+             <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+             
+             <p:separator/>
+             <p:button value="Registrar Oportunidad" outcome="createOportunity"/>
+             <p:button value="Regresar" style="float: right;"/><br/><br/>
+             
+            <p:dataTable value="#{oportunidadController.listarOportunidades()}" var="oportunity"
+                         paginator="true" rows="10">
                 
-                <h:column>
-                    <f:facet name="header">Nombre</f:facet>
+                <p:column headerText="Nombre">
                     <h:outputText value="#{oportunity.nombre}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Fecha Inicio</f:facet>
-                    <h:outputText value="#{oportunity.fechaInicio}"/>
-                </h:column>
+                <p:column headerText="Fecha Inicio">
+                    <h:outputText value="#{oportunity.fechaInicio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>   
+                    </h:outputText>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Fecha Fin</f:facet>
-                    <h:outputText value="#{oportunity.fechaFin}"/>
-                </h:column>
+                <p:column headerText="Fecha Fin">
+                    <h:outputText value="#{oportunity.fechaFin}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Razón</f:facet>
+                <p:column headerText="Razón">
                     <h:outputText value="#{oportunity.razon}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Descripción</f:facet>
+                <p:column headerText="Descripción">
                     <h:outputText value="#{oportunity.descripcion}"/>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Número Intentos</f:facet>
-                    <h:outputText value="#{oportunity.numIntentos}"/>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Acciones</f:facet>
+                </p:column>
+                  
+                <p:column headerText="Estado">
+                    <h:outputText value="#{oportunity.idEstado.descripcion}"/>
+                </p:column>
+                                
+                <p:column headerText="Acciones">
                     <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la oportunidad?')" 
                                      action="#{oportunidadController.eliminarOportunidad(oportunity)}" />
                     <h:commandButton value="Editar"
                                      action="#{oportunidadController.editarOportunidad(oportunity)}"/>
-                </h:column>
+                </p:column>
                 
-            </h:dataTable>
+            </p:dataTable>
         </h:form>
         
     </h:body>

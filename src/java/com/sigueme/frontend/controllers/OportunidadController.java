@@ -14,9 +14,11 @@ import com.sigueme.backend.model.UsuarioFacadeLocal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -57,15 +59,39 @@ public class OportunidadController {
     }
     
     public String registrarOportunidad(){
-        estadoOportunidad = estadoOportunidadFacadeLocal.find(1);
-        this.oportunidad.setIdEstado(estadoOportunidad);
-        this.oportunidadFacadeLocal.create(oportunidad);
-        return "principalOportunity";
+        FacesContext context = FacesContext.getCurrentInstance();
+        String redirect = "createOportunity";
+        
+        try{
+            //estadoOportunidad = estadoOportunidadFacadeLocal.find(1);
+            this.oportunidadFacadeLocal.create(oportunidad);
+                       
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La incidencia se ha registrado correctamente"));
+        
+            redirect = "principalOportunity";
+        }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo registrar la incidencia"));
+        }
+        return redirect;
+        
     }
     
     public void eliminarOportunidad(OportunidadDeAprendizaje oportunidad){
-      this.oportunidad = oportunidad;
-      this.oportunidadFacadeLocal.remove(this.oportunidad);
+        FacesContext context = FacesContext.getCurrentInstance();
+        this.oportunidad = oportunidad;
+        try{
+            this.oportunidadFacadeLocal.remove(this.oportunidad);
+                      
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La oportunidad se ha eliminado correctamente"));
+        
+            }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo eliminar la oportunidad"));
+        }
+      
     }
     
     public String editarOportunidad(OportunidadDeAprendizaje oportunidad){
@@ -74,8 +100,19 @@ public class OportunidadController {
     }
     
     public String editarOportunidad(){
-        this.oportunidadFacadeLocal.edit(this.oportunidad);
-        return "principalOportunity";
+        FacesContext context = FacesContext.getCurrentInstance();
+        String redirect = "editOportunity";
+        try{
+            this.oportunidadFacadeLocal.edit(this.oportunidad);
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La oportunidad se ha modificado correctamente") );
+            redirect = "principalOportunity";
+        }catch(Exception e){
+            context.addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "La oportunidad no se pudo modificar") );
+        }
+        return redirect;
+       
     }
     
     public OportunidadDeAprendizaje getOportunidad() {

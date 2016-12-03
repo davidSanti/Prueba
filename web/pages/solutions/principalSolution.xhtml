@@ -10,55 +10,46 @@
     <h:body>
         
         <h:form>
-            <p:growl id="growl" showDetail="true" sticky="false" life="1500"/> 
+             <h2>Listados de Soluciones</h2>
+            
+            <p:growl id="growlCreateIncident" showDetail="true" sticky="false" life="2000"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             
-            <h:link value="Registrar Solucion" outcome="createSolution"/>
-            <h:dataTable value="#{solucionController.listarSoluciones()}" var="solution"
-                         border="1" cellpadding="6" cellspacing="3">
+            <p:separator/>
+            <p:button value="Registrar Solucion" outcome="createSolution"/> 
+            <p:button value="Regresar" style="float: right;"/> <br/><br/> 
+        
+            <p:dataTable value="#{solucionController.listarSoluciones()}" var="solution"
+                         paginator="true" rows="7">
+             
                 
-                <h:column>
-                    <f:facet name="header">Solución ID</f:facet>
-                    <h:outputText value="#{solution.solucionID}"/>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Agente</f:facet>
+                <p:column headerText="Agente">
                     <h:outputText value="#{solution.agente.apellidos} #{solution.agente.nombre}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Nombre</f:facet>
+                <p:column headerText="Nombre">
                     <h:outputText value="#{solution.nombre}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Descripción</f:facet>
-                    <h:outputText value="#{solution.descripcion}"/>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Fecha registro</f:facet>
-                    <h:outputText value="#{solution.fecha}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                    </h:outputText>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Categoría</f:facet>
+                <p:column headerText="Categoría">
                     <h:outputText value="#{solution.categoria.descripcion}"/>
-                </h:column>
+                </p:column>
                 
-                <h:column>
-                    <f:facet name="header">Acciones</f:facet>
+                <p:column headerText="Descripción">
+                    <h:outputText value="#{solution.descripcion}"/>
+                </p:column>
+                
+                
+                <p:column headerText="Acciones">
+     
                     <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la solución?')"
                                      action="#{solucionController.eliminarSolucion(solution)}"/>
                     <h:commandButton value="Editar"
                                      action="#{solucionController.editarSolucion(solution)}"/>
-                </h:column>
+                </p:column>
                 
-            </h:dataTable>
+            </p:dataTable>
         </h:form>
         
     </h:body>

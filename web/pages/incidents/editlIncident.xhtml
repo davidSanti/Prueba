@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Editar Incidencia</title>
     </h:head>
     <h:body>
         
@@ -17,14 +17,15 @@
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             
-            <h:panelGrid columns="3">
-                <p:outputLabel for="numCaso" value="Numero de caso"/> 
+            <h:panelGrid columns="4">
+                <p:outputLabel for="numCaso" value="Número de caso"/> 
                 <p:inputText id="numCaso" required="true" disabled="true"
                              value="#{incidenciaController.incidencia.numeroDeCaso}">
                     <f:validateLength minimum="4" maximum="6"/>
                 </p:inputText>
                 <p:message for="numCaso"/>
-                
+                <p:tooltip for="numCaso" value="Escriba el número de caso por favor" />
+
                 <p:outputLabel for="agente" value="Agente"/>
                 <p:selectOneMenu id="agente" value="#{incidenciaController.incidencia.agente}" 
                                  converter="usuarioConverter" filter="true">
@@ -32,6 +33,7 @@
                                    itemLabel="#{item.apellidos}" itemValue="#{item}"/>
                 </p:selectOneMenu>
                 <p:message for="agente"/>
+                <p:tooltip for="agente" value="Selecciona un agente por favor" />
                 
                 <p:outputLabel for="categoria" value="Categoria"/>
                 <p:selectOneMenu id="categoria" value="#{incidenciaController.incidencia.idCategoria}"
@@ -40,11 +42,13 @@
                                    itemLabel="#{ser.descripcion}" itemValue="#{ser}"/>
                 </p:selectOneMenu>
                 <p:message for="categoria"/>
+                <p:tooltip for="categoria" value="Selecciona una categoría por favor" />
                 
-                <p:outputLabel for="descripcion" value="Descripcion"/> 
+                <p:outputLabel for="descripcion" value="Descripción"/> 
                 <p:inputTextarea id="descripcion" required="true" requiredMessage="Descripción es un Campo Obligatorio"
                                  value="#{incidenciaController.incidencia.descripcion}"/>
                 <p:message for="descripcion"/>
+                <p:tooltip for="descripcion" value="Escriba una breve descripción por favor" />
                                 
                 <p:outputLabel for="error" value="Error Frecuente"/>
                 <p:selectCheckboxMenu label="Errores" value="#{incidenciaController.incidencia.erroresFrescuentes}"
@@ -54,8 +58,9 @@
                     
                 </p:selectCheckboxMenu>
                 <p:message for="error"/>
+                <p:tooltip for="error" value="Selecciones los errores frecuentes" />
                 
-                <h:column/><h:column/><h:column/>
+                <h:column/><h:column/><h:column/><h:column/>
                 
                 <p:commandButton id="p2" value="Guardar" update="growlEditIncident"
                                  action="#{incidenciaController.editarIncidencia()}"/>

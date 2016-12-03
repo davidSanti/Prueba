@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Editar Usuario</title>
     </h:head>
     <h:body>
        
@@ -17,7 +17,7 @@
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="4">
                 
                 <p:outputLabel for="cedula" value="Cedula"/>
                 <p:inputText   id="cedula" required="true" disabled="true"
@@ -25,6 +25,7 @@
                     <f:validateLength minimum="8" maximum="10" />
                 </p:inputText>
                 <p:message for="cedula"/>
+                <p:tooltip for="cedula" value="Escriba su cedula por favor"/>
                 
                 <p:outputLabel for="nombre" value="Nombre"/>
                 <p:inputText   id="nombre" required="true" requiredMessage="Nombre es un Campo Obligatorio"
@@ -32,6 +33,7 @@
                     <f:validateLength minimum="3" maximum="15" />
                 </p:inputText>
                 <p:message for="nombre"/>
+                <p:tooltip for="nombre" value="Escriba su nombre por favor"/>
                                
                 <p:outputLabel for="apellido" value="Apellido"/>
                 <p:inputText   id="apellido" required="true" requiredMessage="Apellido es un Campo Obligatorio"
@@ -39,6 +41,7 @@
                     <f:validateLength minimum="3" maximum="15" />
                 </p:inputText>
                 <p:message for="apellido"/>
+                <p:tooltip for="apellido" value="Escriba su apellido por favor"/>
                 
                 <p:outputLabel for="email" value="Correo"/>
                 <p:inputText   id="email" required="true" requiredMessage="Correo es un Campo Obligatorio"
@@ -47,6 +50,7 @@
                     <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
                 </p:inputText>
                 <p:message for="email"/>
+                <p:tooltip for="email" value="Escriba su email por favor"/>
                 
                 <p:outputLabel for="password" value="Contraseña"/>
                 <p:password id="password" required="true" requiredMessage="Contraseña es un Campo Obligatorio"
@@ -54,6 +58,7 @@
                     <f:validateLength minimum="8" maximum="16" />
                 </p:password>
                 <p:message for="password"/>
+                <p:tooltip for="password" value="Escriba su contraseña por favor"/>
                 
                 <p:outputLabel for="role" value="Rol"/>
                 <p:selectOneMenu id="role" value="#{usuarioController.usuario.idRol}" 
@@ -62,10 +67,13 @@
                                    itemLabel="#{rol.descripcion}" itemValue="#{rol}"/>
                 </p:selectOneMenu>
                 <p:message for="role"/>
+                <p:tooltip for="role" value="Seleccione un rol por favor"/>
+                
+                <h:column/><h:column/><h:column/><h:column/>
                 
                 <p:commandButton id="editUser" value="Guardar Datos"
                                  action="#{usuarioController.editarUsuario()}" update="growlEditUser"/>
-                
+                <p:commandButton value="Cancelar" action="principalIncident"/>
             </h:panelGrid>
         </h:form>
         

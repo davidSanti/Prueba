@@ -86,7 +86,7 @@ public class OportunidadDeAprendizaje implements Serializable {
     @Column(name = "NumIntentos", insertable = false)
     private Integer numIntentos;
     
-    @JoinColumn(name = "IdEstado", referencedColumnName = "EstadoID")
+    @JoinColumn(name = "IdEstado", referencedColumnName = "EstadoID", insertable = false)
     @ManyToOne(optional = false)
     private EstadoOportunidad idEstado;
     

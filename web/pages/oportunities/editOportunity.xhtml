@@ -10,57 +10,79 @@
     <h:body>
         
         <h:form>
-            <h:panelGrid columns="2">
+            <h2>Editar portunidad de aprendizaje</h2>
+            <p:separator/>
                 
-                <h:outputLabel  value="Oportunidad ID" for="oportunidadId"  />
-                <h:inputText id="oportunidadId" required="true" disabled="true"
+            <p:growl id="growlEditOportunity" showDetail="true" sticky="false" life="2000"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            
+            <h:panelGrid columns="4">
+                
+                <p:outputLabel  value="Oportunidad ID" for="oportunidadId"  />
+                <p:inputText id="oportunidadId" required="true" disabled="true"
                              value="#{oportunidadController.oportunidad.oportunidadID}"/>
-                
-                <h:outputLabel  value="Nombre" for="nombre"  />
-                <h:inputText id="nombre" required="true"
+                <p:message for="oportunidadId" display="tooltip"/>
+                <p:column/>
+                                    
+                <p:outputLabel  value="Nombre" for="nombre"  />
+                <p:inputText id="nombre" required="true" requiredMessage="Campo Obligatorio"
                              value="#{oportunidadController.oportunidad.nombre}"/>
+                <p:message for="nombre" display="tooltip"/>
+                <p:tooltip for="nombre" value="Escriba un nombre para la oportunidad por favor" />
                 
-                <h:outputLabel value="Fecha Inicio" for="fechaInicio"/>
-                <p:calendar id="fechaInicio" required="true" pattern="MM/dd/yyyy HH:mm:ss"
+                <p:outputLabel value="Fecha Inicio" for="fechaInicio"/>
+                <p:calendar id="fechaInicio" required="true" requiredMessage="Campo Obligatorio"
+                            pattern="MM/dd/yyyy HH:mm:ss"
                             value="#{oportunidadController.oportunidad.fechaInicio}">
                     <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
                 </p:calendar>
+                <p:message for="fechaInicio" display="tooltip"/>
+                <p:tooltip for="fechaInicio" value="Seleccione una fecha de inicio" />
                 
-                <h:outputLabel value="Fecha Fin" for="fechaFin"/>
-                <p:calendar id="fechaFin" required="true" pattern="MM/dd/yyyy HH:mm:ss"
+                <p:outputLabel value="Fecha Fin" for="fechaFin"/>
+                <p:calendar id="fechaFin" required="true" requiredMessage="Campo Obligatorio"
+                            pattern="MM/dd/yyyy HH:mm:ss"
                             value="#{oportunidadController.oportunidad.fechaFin}">
                     <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
                 </p:calendar>
+                <p:message for="fechaFin" display="tooltip"/>
+                <p:tooltip for="fechaFin" value="Seleccione una fecha de finalización" />
                  
-                <h:outputLabel  value="Razon" for="razon"  />
-                <h:inputText id="razon" required="true"
+                <p:outputLabel  value="Razon" for="razon"  />
+                <p:inputText id="razon" required="true" requiredMessage="Campo Obligatorio"
                              value="#{oportunidadController.oportunidad.razon}"/>
+                <p:message for="razon" display="tooltip"/>
+                <p:tooltip for="razon" value="Escriba la razón de la oportunidad por favor" />
                 
-                <h:outputLabel  value="Descripcion" for="descripcion"  />
-                <h:inputTextarea id="descripcion" required="true"
+                <p:outputLabel  value="Descripcion" for="descripcion"  />
+                <p:inputTextarea id="descripcion" required="true" requiredMessage="Campo Obligatorio"
                                  value="#{oportunidadController.oportunidad.descripcion}"/>
+                <p:message for="descripcion" display="tooltip"/>
+                <p:tooltip for="descripcion" value="Escriba una breve descripción por favor" />
                 
-                <h:outputLabel  value="Numero de Intentos" for="numeroIntentos"  />
-                <h:inputText id="numeroIntentos" required="true"
-                             value="#{oportunidadController.oportunidad.numIntentos}"/>
-                
-                <h:outputLabel value="Estado" for="estado"/>
-                <h:selectOneMenu id="estado" converter="estadoOportunidadConverter"
+                               
+                <p:outputLabel value="Estado" for="estado"/>
+                <p:selectOneMenu id="estado" required="true" requiredMessage="Campo Obligatorio"
+                                 converter="estadoOportunidadConverter"
                                  value="#{oportunidadController.oportunidad.idEstado}">
                     <f:selectItems var="est" value="#{oportunidadController.estadosOportuniad}"
-                                   itemLabel="#{est.descripcion}"
-                                   itemValue="#{est}"/>
-                </h:selectOneMenu>
+                                   itemLabel="#{est.descripcion}" itemValue="#{est}"/>
+                </p:selectOneMenu>
+                <p:message for="estado" display="tooltip"/>
+                <p:tooltip for="estado" value="Seleccione el estado para la oportunidad por favor" />
                 
-                <h:outputLabel for="agentesOp" value="Agentes"/>
-                <h:selectManyCheckbox value="#{oportunidadController.oportunidad.usuariosOportunidad}"
-                                          id="agentesOp" converter="usuarioConverter">
+                <p:outputLabel for="agentesOp" value="Agentes"/>
+                <p:selectCheckboxMenu label="Agentes" value="#{oportunidadController.oportunidad.usuariosOportunidad}"
+                                      id="agentesOp" converter="usuarioConverter" filter="true">
                     <f:selectItems value="#{oportunidadController.agentesOportunidad}" var="agt"
-                                       itemLabel="#{agt.apellidos}" itemValue="#{agt}"/>
+                                   itemLabel="#{agt.nombre} #{agt.apellidos}" itemValue="#{agt}"/>
                         
-                </h:selectManyCheckbox>
+                </p:selectCheckboxMenu>
+                <p:message for="agentesOp" display="tooltip"/>
+                <p:tooltip for="agentesOp" value="Escriba un nombre para la oportunidad por favor" />
                 
-                <h:commandButton id="editOportu" value="Guardar"
+                <p:commandButton id="editOportu" value="Guardar" update="growlEditOportunity"
                                  action="#{oportunidadController.editarOportunidad()}"/>
                 
             </h:panelGrid>

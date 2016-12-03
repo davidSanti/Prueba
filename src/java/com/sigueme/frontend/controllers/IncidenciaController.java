@@ -109,14 +109,10 @@ public class IncidenciaController {
 
     public String editarIncidencia(){
         FacesContext context = FacesContext.getCurrentInstance();
-        System.out.println("descripcion:: "+this.incidencia.getDescripcion());
-        System.out.println("Numero de caso:: "+this.incidencia.getNumeroDeCaso());
         String redirect = "editlIncident";
         try{
             
             this.incidenciaFacadeLocal.edit(this.incidencia);
-        System.out.println("descripcion seteada:: "+this.incidencia.getDescripcion());
-        System.out.println("Numero de caso seteada:: "+this.incidencia.getNumeroDeCaso());
             context.addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "La incidencia se ha modificado correctamente") );
             redirect = "principalIncident";

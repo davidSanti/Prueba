@@ -12,32 +12,38 @@
             <h2>Editar Solución</h2>
             <p:separator/>
                 
-            <p:growl id="growl" showDetail="true" sticky="false" life="1500"/> 
+            <p:growl id="growlEditSolution" showDetail="true" sticky="false" life="1500"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             <h:messages showDetail="true" showSummary="true"/>
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="4">
                 
-                <h:outputLabel for="nombre" value="Nombre"/>
-                <h:inputText id="nombre" required="true"
+                <p:outputLabel for="nombre" value="Nombre"/>
+                <p:inputText id="nombre" required="true" requiredMessage="Campo Obligatorio"
                              value="#{solucionController.solucion.nombre}"/>
-                <h:message for="nombre"/>
+                <p:message for="nombre"/>
+                <p:tooltip for="nombre" value="Escriba el nombre de la solución por favor" />
                 
-                <h:outputLabel for="descripcion" value="Descripcion"/>
-                <h:inputTextarea id="descripcion" required="true"
+                <p:outputLabel for="descripcion" value="Descripcion"/>
+                <p:inputTextarea id="descripcion" required="true" requiredMessage="Campo Obligatorio"
                                  value="#{solucionController.solucion.descripcion}"/>
-                <h:message for="descripcion"/>
+                <p:message for="descripcion"/>
+                <p:tooltip for="descripcion" value="Escriba una breve descripción por favor" />
                 
-                <h:outputLabel for="categoria" value="Categoria"/>
-                <h:selectOneMenu id="categoria" value="#{solucionController.solucion.categoria}"
-                                 converter="servicioConverter">
+                <p:outputLabel for="categoria" value="Categoria"/>
+                <p:selectOneMenu id="categoria" value="#{solucionController.solucion.categoria}"
+                                 converter="servicioConverter" required="true" filter="true">
                     <f:selectItems var="cate" value="#{solucionController.servicios}"
                                    itemLabel="#{cate.descripcion}" itemValue="#{cate}"/>
-                </h:selectOneMenu>
-                <h:message for="categoria"/>
+                </p:selectOneMenu>
+                <p:message for="categoria"/>
+                <p:tooltip for="categoria" value="Seleccione la categoría por favor" />
                 
-                <h:commandButton id="createSolution" value="Guardar datos"
+                <h:column/><h:column/><h:column/><h:column/>
+                
+                <p:commandButton id="createSolution" value="Guardar datos" update="growlEditSolution"
                                  action="#{solucionController.editarSolucion()}"/>
+                <p:commandButton value="Cancelar" action="principalSolution"/>
             </h:panelGrid>
         </h:form>
     </h:body>

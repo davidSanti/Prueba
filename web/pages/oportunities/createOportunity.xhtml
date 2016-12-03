@@ -12,42 +12,64 @@
         
         <f:view>
             <h:form>
-                <h:panelGrid columns="2">
+            <h2>Registrar portunidad de aprendizaje</h2>
+            <p:separator/>
+                
+            <p:growl id="growlCreateOportunity" showDetail="true" sticky="false" life="2000"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            
+                <h:panelGrid columns="4">
                     
-                    <h:outputLabel for="nombre" value="Nombre"/>
-                    <h:inputText id="nombre" required="true"
-                                 value="#{oportunidadController.oportunidad.nombre}"/>
-                    
-                    <h:outputLabel for="fechaIni" value="Fecha Inicio"/>
-                    <p:calendar id="fechaIni" value="#{oportunidadController.oportunidad.fechaInicio}"
+                    <p:outputLabel for="nombre" value="Nombre"/>
+                    <p:inputText id="nombre" required="true" requiredMessage="Campo Obligatorio"
+                                 value="#{oportunidadController.oportunidad.nombre}">
+                        <f:validateLength minimum="4" maximum="70"/>
+                    </p:inputText>
+                    <p:message for="nombre" display="tooltip"/>
+                    <p:tooltip for="nombre" value="Escriba un nombre para la oportunidad por favor" />
+                
+                    <p:outputLabel for="fechaIni" value="Fecha Inicio"/>
+                    <p:calendar id="fechaIni" required="true" requiredMessage="Campo Obligatorio"
+                                value="#{oportunidadController.oportunidad.fechaInicio}"
                                 pattern="MM/dd/yyyy HH:mm:ss" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
                     </p:calendar>
+                    <p:message for="fechaIni" display="tooltip"/>
+                    <p:tooltip for="fechaIni" value="Seleccione una fecha de inicio" />
                     
-                    <h:outputLabel for="fechaFin" value="Fecha Fin"/>
-                    <p:calendar id="fechaFin" value="#{oportunidadController.oportunidad.fechaFin}"
+                    <p:outputLabel for="fechaFin" value="Fecha Fin"/>
+                    <p:calendar id="fechaFin" required="true" requiredMessage="Campo Obligatorio"
+                                value="#{oportunidadController.oportunidad.fechaFin}"
                                 pattern="MM/dd/yyyy HH:mm:ss" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
                     </p:calendar>
-                    
-                    <h:outputLabel for="razon" value="Razon"/>
-                    <h:inputText id="razon" required="true"
+                    <p:message for="fechaFin" display="tooltip"/>
+                    <p:tooltip for="fechaFin" value="Seleccione una fecha de finalización" />
+                
+                    <p:outputLabel for="razon" value="Razon"/>
+                    <p:inputText id="razon" required="true" requiredMessage="Campo Obligatorio"
                                  value="#{oportunidadController.oportunidad.razon}"/>
-                    
-                    <h:outputLabel for="descripcion" value="Descripcion"/>
-                    <h:inputText id="descripcion" required="true"
+                    <p:message for="razon" display="tooltip"/>
+                    <p:tooltip for="razon" value="Escriba la razón de la oportunidad por favor" />
+                
+                    <p:outputLabel for="descripcion" value="Descripción"/>
+                    <p:inputTextarea id="descripcion" required="true" requiredMessage="Campo Obligatorio"
                                  value="#{oportunidadController.oportunidad.descripcion}"/>
-                    
-                    
-                    <h:outputLabel for="agentesOp" value="Agentes"/>
-                    <h:selectManyCheckbox value="#{oportunidadController.oportunidad.usuariosOportunidad}"
-                                          id="agentesOp" converter="usuarioConverter">
+                    <p:message for="descripcion" display="tooltip"/>
+                    <p:tooltip for="descripcion" value="Escriba una breve descripción por favor" />
+                                    
+                    <p:outputLabel for="agentesOp" value="Agentes"/>
+                    <p:selectCheckboxMenu label="Agentes" value="#{oportunidadController.oportunidad.usuariosOportunidad}"
+                                          id="agentesOp" converter="usuarioConverter" filter="true">
                         <f:selectItems value="#{oportunidadController.agentesOportunidad}" var="agt"
-                                       itemLabel="#{agt.apellidos}" itemValue="#{agt}"/>
+                                       itemLabel="#{agt.nombre} #{agt.apellidos}" itemValue="#{agt}"/>
                         
-                    </h:selectManyCheckbox>
-                    
-                    <h:commandButton id="bo" value="Enviar"
+                    </p:selectCheckboxMenu>
+                    <p:message for="agentesOp" display="tooltip"/>
+                    <p:tooltip for="agentesOp" value="Seleccione el o los agentes por favor" />
+                
+                    <p:commandButton id="bo" value="Enviar" update="growlCreateOportunity"
                                      action="#{oportunidadController.registrarOportunidad()}"/>
                 </h:panelGrid>
             </h:form>
