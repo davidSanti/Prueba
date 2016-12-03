@@ -41,9 +41,9 @@
                     <h:outputText value="#{user.idRol.descripcion}"/>
                 </p:column>
                 
-                <p:column headerText="Acciones" width="100">
-                    <p:commandButton  icon="ui-icon-pencil" action="#{usuarioController.editarUsuario(user)}"/>
-                    <p:commandButton  icon="ui-icon-close" onclick="return confirm('¿Está seguro de eliminar el usuario?')"
+                <p:column headerText="Acciones">
+                    <h:commandButton  value="Editar" action="#{usuarioController.editarUsuario(user)}"/>
+                    <h:commandButton  value="Eliminar" onclick="return confirm('¿Está seguro de eliminar el usuario?')"
                                       action="#{usuarioController.eliminarUsuario(user)}" />
                 </p:column>
                 

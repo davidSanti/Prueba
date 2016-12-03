@@ -10,6 +10,7 @@
     <class>com.sigueme.backend.entities.Servicio</class>
     <class>com.sigueme.backend.entities.Usuario</class>
     <class>com.sigueme.backend.entities.Solucion</class>
+    <class>com.sigueme.backend.entities.Procedimiento</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
     <properties/>

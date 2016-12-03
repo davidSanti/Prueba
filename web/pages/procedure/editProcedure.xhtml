@@ -2,48 +2,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h2>Editar Solución</h2>
+       <h:form>
+            <h2>Editar Procedimiento</h2>
             <p:separator/>
                 
-            <p:growl id="growlEditSolution" showDetail="true" sticky="false" life="1500"/> 
+            <p:growl id="growlEditProcedure" showDetail="true" sticky="false" life="1500"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             <h:messages showDetail="true" showSummary="true"/>
             <h:panelGrid columns="4">
                 
                 <p:outputLabel for="categoria" value="Categoria"/>
-                <p:selectOneMenu id="categoria" value="#{solucionController.solucion.categoria}"
+                <p:selectOneMenu id="categoria" value="#{procedimientoController.procedimiento.categoria}"
                                  converter="servicioConverter" required="true" filter="true">
-                    <f:selectItems var="cate" value="#{solucionController.servicios}"
+                    <f:selectItems var="cate" value="#{procedimientoController.servicios}"
                                    itemLabel="#{cate.descripcion}" itemValue="#{cate}"/>
                 </p:selectOneMenu>
                 <p:message for="categoria"/>
                 <p:tooltip for="categoria" value="Seleccione la categoría por favor" />
-                                
+                
+                
                 <p:outputLabel for="nombre" value="Nombre"/>
                 <p:inputText id="nombre" required="true" requiredMessage="Campo Obligatorio"
-                             value="#{solucionController.solucion.nombre}"/>
+                             value="#{procedimientoController.procedimiento.nombre}"/>
                 <p:message for="nombre"/>
-                <p:tooltip for="nombre" value="Escriba el nombre de la solución por favor" />
+                <p:tooltip for="nombre" value="Escriba el nombre del procedimiento por favor" />
                 
                 <p:outputLabel for="descripcion" value="Descripcion"/>
                 <p:inputTextarea id="descripcion" required="true" requiredMessage="Campo Obligatorio"
-                                 value="#{solucionController.solucion.descripcion}"/>
+                                 value="#{procedimientoController.procedimiento.descripcion}"/>
                 <p:message for="descripcion"/>
                 <p:tooltip for="descripcion" value="Escriba una breve descripción por favor" />
                 
                 <h:column/><h:column/><h:column/><h:column/>
                 
-                <p:commandButton id="createSolution" value="Guardar datos" update="growlEditSolution"
-                                 action="#{solucionController.editarSolucion()}"/>
-                <p:commandButton value="Cancelar" action="principalSolution"/>
+                <p:commandButton id="createSolution" value="Guardar datos" update="growlEditProcedure"
+                                 action="#{procedimientoController.editarProcedimiento()}"/>
+                <p:commandButton value="Cancelar" action="principalProcedure"/>
             </h:panelGrid>
         </h:form>
     </h:body>

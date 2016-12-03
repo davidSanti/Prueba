@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registrar Procedimiento</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h2>Registrar Procedimiento</h2>
+            <p:separator/>
+                
+            <p:growl id="growlCreateProcedure" showDetail="true" sticky="false" life="1500"/> 
+            <p:messages severity="fatal,info,warn"
+                        showDetail="true" showSummary="true"/>
+            <h:panelGrid columns="4">
+                
+                 <p:outputLabel for="categoria" value="Categoria"/>
+                 <p:selectOneMenu id="categoria" value="#{procedimientoController.procedimiento.categoria}"
+                                 converter="servicioConverter" filter="true"
+                                 required="true" requiredMessage="Campo Obligatorio">
+                     <f:selectItems var="cate" value="#{procedimientoController.servicios}"
+                                   itemLabel="#{cate.descripcion}" itemValue="#{cate}"/>
+                </p:selectOneMenu>
+                <p:message for="categoria"/>
+                <p:tooltip for="categoria" value="Seleccione la categoría por favor" />
+                
+                <p:outputLabel for="nombre" value="Nombre"/>
+                <p:inputText id="nombre" required="true" requiredMessage="Campo Obligatorio"
+                             value="#{procedimientoController.procedimiento.nombre}">
+                    <f:validateLength minimum="10" maximum="100"/>
+                </p:inputText>
+                <p:message for="nombre"/>
+                <p:tooltip for="nombre" value="Escriba el nombre del procedimiento por favor" />
+                
+                <p:outputLabel for="descripcion" value="Descripcion"/>
+                <p:inputTextarea id="descripcion" rows="5" cols="25"
+                                 required="true" requiredMessage="Campo Obligatorio"
+                                 value="#{procedimientoController.procedimiento.descripcion}"/>
+                <p:message for="descripcion"/>
+                <p:tooltip for="descripcion" value="Escriba una breve descripción por favor" />
+               
+                <h:column/><h:column/><h:column/><h:column/>
+                
+                <p:commandButton id="createSolution" value="Registrar" update="growlCreateProcedure"
+                                 action="#{procedimientoController.registrarProcedimiento()}"/>
+                <p:commandButton value="Cancelar" action="principalProcedure"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

@@ -10,46 +10,46 @@
     <h:body>
         
         <h:form>
-             <h2>Listados de Soluciones</h2>
+             <h2>Listados de Procedimientos</h2>
             
-            <p:growl id="growlsolutions" showDetail="true" sticky="false" life="2000"/> 
+             <p:growl id="growlSolution" showDetail="true" sticky="false" life="2000"/> 
             <p:messages severity="fatal,info,warn"
                         showDetail="true" showSummary="true"/>
             
             <p:separator/>
-            <p:button value="Registrar Solucion" outcome="createSolution"/> 
+            <p:button value="Registrar Procedimiento" outcome="createProcedure"/> 
             <p:button value="Regresar" style="float: right;"/> <br/><br/> 
         
-            <p:dataTable value="#{solucionController.listarSoluciones()}" var="solution"
+            <p:dataTable value="#{procedimientoController.listarprocedimientos()}" var="procedure"
                          paginator="true" rows="7">
              
                 
                 <p:column headerText="Agente">
-                    <h:outputText value="#{solution.agente.apellidos} #{solution.agente.nombre}"/>
+                    <h:outputText value="#{procedure.agente.apellidos} #{procedure.agente.nombre}"/>
                 </p:column>
                 
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{solution.nombre}"/>
+                    <h:outputText value="#{procedure.nombre}"/>
                 </p:column>
                 
                 <p:column headerText="Categoría">
-                    <h:outputText value="#{solution.categoria.descripcion}"/>
+                    <h:outputText value="#{procedure.categoria.descripcion}"/>
                 </p:column>
                 
                 <p:column headerText="Descripción">
-                    <h:outputText value="#{solution.descripcion}"/>
+                    <h:outputText value="#{procedure.descripcion}"/>
                 </p:column>
                 
                 
                 <p:column headerText="Acciones">
      
-                    <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar la solución?')"
-                                     action="#{solucionController.eliminarSolucion(solution)}"/>
+                    <h:commandButton value="Eliminar" onclick="return confirm('¿Está seguro de eliminar el procedimiento?')"
+                                     action="#{procedimientoController.eliminarProcedimiento(procedure)}"/>
                     <h:commandButton value="Editar"
-                                     action="#{solucionController.editarSolucion(solution)}"/>
+                                     action="#{procedimientoController.editarProcedimiento(procedure)}"/>
                 </p:column>
                 
-            </p:dataTable>
+            </p:dataTable>  
         </h:form>
         
     </h:body>

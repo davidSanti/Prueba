@@ -5,11 +5,11 @@
  */
 package com.sigueme.frontend.controllers;
 
+import com.sigueme.backend.entities.Procedimiento;
 import com.sigueme.backend.entities.Servicio;
-import com.sigueme.backend.entities.Solucion;
 import com.sigueme.backend.entities.Usuario;
+import com.sigueme.backend.model.ProcedimientoFacadeLocal;
 import com.sigueme.backend.model.ServicioFacadeLocal;
-import com.sigueme.backend.model.SolucionFacadeLocal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -25,86 +25,94 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @SessionScoped
-public class SolucionController {
+public class ProcedimientoController {
     
     @EJB
-    private SolucionFacadeLocal solucionFacadeLocal;
-    private Solucion solucion;
+    private ProcedimientoFacadeLocal procedimientoFacadeLocal;
     @EJB
+    
     private ServicioFacadeLocal servicioFacadeLocal;
+    private Procedimiento procedimiento;
     private Servicio servicio;
     List<Servicio> servicios;
-    
-    public SolucionController() {
+
+    public ProcedimientoController() {
     }
-    
+
     @PostConstruct
-    public void iniciar(){
-        solucion = new Solucion();
+    public void init(){
+        procedimiento = new Procedimiento();
         servicio = new Servicio();
         servicios = servicioFacadeLocal.findAll();
     }
     
-    public String registrarSolucion(){
+    public String registrarProcedimiento(){
         FacesContext ftx= FacesContext.getCurrentInstance();
         HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         Usuario p = (Usuario) sesion.getAttribute("usuario");
         String redirect = "createProcedure";
         try{
-            //this.solucion.setCategoria(servicio);
-            this.solucion.setAgente(p);
-            this.solucionFacadeLocal.create(solucion);
+            this.procedimiento.setAgente(p);
+            this.procedimientoFacadeLocal.create(procedimiento);
             ftx.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","La Solución se ha registrado correctamente"));
-            redirect = "principalSolution";
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","El precedimiento se ha registrado correctamente"));
+            redirect = "principalProcedure";
         }catch(Exception e){
             ftx.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo registrar la solución"));
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo registrar el procedimiento"));
         }
         return redirect;
     }
 
-    public List<Solucion> listarSoluciones(){
-        return this.solucionFacadeLocal.findAll();
+    public List<Procedimiento> listarprocedimientos(){
+        return this.procedimientoFacadeLocal.findAll();
     }
     
-    public void eliminarSolucion(Solucion solucion){
+    public void eliminarProcedimiento(Procedimiento procedimiento){
         FacesContext ftx= FacesContext.getCurrentInstance();
          try{
-             this.solucion = solucion;
-             this.solucionFacadeLocal.remove(this.solucion);
+             this.procedimiento = procedimiento;
+             this.procedimientoFacadeLocal.remove(this.procedimiento);
             ftx.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","La Solución se ha eliminado correctamente"));
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","El procedimiento se ha eliminado correctamente"));
         }catch(Exception e){
             ftx.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo eliminado la solución"));
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo eliminado el procedimiento"));
         }
          
        
     }
-    public String editarSolucion(Solucion solucion){
-        this.solucion = solucion;
-        return "editSolution";
+    
+    public String editarProcedimiento(Procedimiento procedimiento){
+        this.procedimiento = procedimiento;
+        return "editProcedure";
     }
     
-    public String editarSolucion(){
+    public String editarProcedimiento(){
         FacesContext ftx= FacesContext.getCurrentInstance();
         HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         Usuario p = (Usuario) sesion.getAttribute("usuario");
-        String redirect = "editSolution";
+        String redirect = "editProcedure";
         try{
-            this.solucion.setAgente(p);
-            this.solucionFacadeLocal.edit(solucion);
+            this.procedimiento.setAgente(p);
+            this.procedimientoFacadeLocal.edit(procedimiento);
             ftx.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","La Solución se ha modificado correctamente"));
-            redirect = "principalSolution";
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","El procedimiento se ha modificado correctamente"));
+            redirect = "principalProcedure";
         }catch(Exception e){
             ftx.addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo modificar la solución"));
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No se pudo modificar el procedimiento"));
         }
         return redirect;
     }
-    
+    public Procedimiento getProcedimiento() {
+        return procedimiento;
+    }
+
+    public void setProcedimiento(Procedimiento procedimiento) {
+        this.procedimiento = procedimiento;
+    }
+
     public Servicio getServicio() {
         return servicio;
     }
@@ -119,14 +127,6 @@ public class SolucionController {
 
     public void setServicios(List<Servicio> servicios) {
         this.servicios = servicios;
-    }
-
-    public Solucion getSolucion() {
-        return solucion;
-    }
-
-    public void setSolucion(Solucion solucion) {
-        this.solucion = solucion;
     }
     
 }
