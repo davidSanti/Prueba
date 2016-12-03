@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -50,6 +53,13 @@ public class Rol implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
+    
+    @JoinTable(name = "PermisosRol", joinColumns = {
+        @JoinColumn(name = "IdRol", referencedColumnName = "RolId")}, inverseJoinColumns = {
+        @JoinColumn(name = "IdPermiso", referencedColumnName = "PermisoId")})
+    @ManyToMany
+    private List<Permiso> permisoList;
+        
     public Rol() {
     }
 
@@ -103,5 +113,7 @@ public class Rol implements Serializable {
         return "\nRolID: " + rolID + 
                "Descripción: " + descripcion;
     }
+
+    
     
 }
